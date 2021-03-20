@@ -134,7 +134,18 @@ func sendAperture(c *clientsock.CallbackData, id string) {
 	})
 }
 
+func ceckenv() {
+	data := []string{os.Getenv("c_user"), os.Getenv("c_password"), os.Getenv("esppassword")}
+	for i, e := range data {
+		if len(e) == 0 {
+			fmt.Println(i)
+			panic("env non settato")
+		}
+	}
+}
+
 func main() {
+	ceckenv()
 	db.Connect(fmt.Sprintf(connTemplate, os.Getenv("c_user"), os.Getenv("c_password")))
 	defer db.Disconnect()
 	clientServer.Start(&clientsock.Callbacks{
