@@ -1,0 +1,23 @@
+hash: bdf5c0b43903ad8f1246f2cdfe547d87d5dcc3a4055c326109e5a2a40514e3e3
+updated: 2021-03-14T22:10:11.302287306+01:00
+imports:
+- name: github.com/gomodule/redigo
+  version: 72af8129e040d6f962772a8c582e5e9f22085788
+  subpackages:
+  - redis
+- name: github.com/googollee/go-socket.io
+  version: 4ba97de50456632b8c53ff8f205880f3a11dd4c7
+  subpackages:
+  - engineio
+  - engineio/base
+  - engineio/packet
+  - engineio/payload
+  - engineio/transport
+  - engineio/transport/polling
+  - engineio/transport/websocket
+  - parser
+- name: github.com/gorilla/websocket
+  version: c3dd95aea9779669bb3daafbd84ee0530c8ce1c1
+- name: github.com/satori/go.uuid
+  version: b2ce2384e17bbe0c6d34077efa39dbab3e09123b
+testImports: []
