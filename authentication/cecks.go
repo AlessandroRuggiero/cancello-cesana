@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-func CeckToken(token string) (FaceToken, error) {
+func CeckToken(token string, serverToken string) (FaceToken, error) {
 	if len(token) < 200 || len(token) > 400 {
 		return FaceToken{}, errors.New("tocken errato")
 	}

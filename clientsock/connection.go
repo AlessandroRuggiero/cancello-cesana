@@ -3,11 +3,13 @@ package clientsock
 import "github.com/AlessandroRuggiero/go-socketcast"
 
 type ClientSock struct {
-	Pool      *socketcast.Pool
-	Callbacks *Callbacks
+	Pool        *socketcast.Pool
+	Callbacks   *Callbacks
+	serverToken string
 }
 
-func (c *ClientSock) Start(callbacks *Callbacks) {
+func (c *ClientSock) Start(callbacks *Callbacks, st string) {
+	c.serverToken = st
 	c.Pool = socketcast.CreatePool(&socketcast.Config{
 		OnMessage: c.messageHandler,
 	})

@@ -37,7 +37,7 @@ func (s *ClientSock) authClient(c *socketcast.Client, msg []byte) bool {
 		c.Pool.Log.Error(err)
 		return true
 	}
-	authToken, err := fauth.CeckToken(authData.Token)
+	authToken, err := fauth.CeckToken(authData.Token, s.serverToken)
 	if err != nil {
 		c.Pool.Log.Infof("autenticazione fallita %s", authData.Token)
 		return true
