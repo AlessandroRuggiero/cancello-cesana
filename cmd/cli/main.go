@@ -30,11 +30,11 @@ func homePage(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Endpoint Hit: homePage")
 }
 
-func handleRequests() {
+func handleRequests(port string) {
 	http.HandleFunc("/", homePage)
 	http.HandleFunc("/esp", esp.WsEndpoint)
 	http.HandleFunc("/ws", clientServer.Pool.Serve)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
 
 func comunicaApricencello(c *clientsock.CallbackData) {
@@ -117,7 +117,7 @@ func sendAperture(c *clientsock.CallbackData, id string) {
 
 func ceckenv() map[string]string {
 	out := make(map[string]string)
-	sources := []string{"c_user", "c_password", "esppassword", "servertoken"}
+	sources := []string{"c_user", "c_password", "esppassword", "servertoken", "PORT"}
 	for _, el := range sources {
 		value := os.Getenv(el)
 		if len(value) == 0 {
@@ -139,5 +139,5 @@ func main() {
 	}, envs["servertoken"])
 	esp.Password = envs["esppassword"]
 	esp.OnAperturaSuccess = aperturaHandler
-	handleRequests()
+	handleRequests(envs["PORT"])
 }
