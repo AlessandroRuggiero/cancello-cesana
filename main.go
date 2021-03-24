@@ -116,7 +116,7 @@ func sendAperture(c *clientsock.CallbackData, id string) {
 
 func ceckenv() map[string]string {
 	out := make(map[string]string)
-	sources := []string{"esppassword", "servertoken", "PORT", "dburi"}
+	sources := []string{"esppassword", "servertoken", "PORT", "DATABASE_URL"}
 	for _, el := range sources {
 		value := os.Getenv(el)
 		if len(value) == 0 {
@@ -129,7 +129,7 @@ func ceckenv() map[string]string {
 
 func main() {
 	envs := ceckenv()
-	err := db.Connect(envs["dburi"])
+	err := db.Connect(envs["DATABASE_URL"])
 	if err != nil {
 		panic(err)
 	}
