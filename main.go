@@ -26,7 +26,7 @@ var esp espconn.EspConnection
 var clientServer clientsock.ClientSock
 
 func homePage(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Welcome to the HomePage! Sto girando:%s", runtime.Version())
+	fmt.Fprintf(w, "Welcome to the HomePage! Sto girando:%s. sulla porta: %s", runtime.Version(), os.Getenv("PORT"))
 	fmt.Println("Endpoint Hit: homePage")
 }
 
