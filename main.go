@@ -18,7 +18,6 @@ import (
 const (
 	maxApertureCancello    = 10
 	maxApertureCancelletto = 20
-	connTemplate           = "host=localhost port=5432 user=%s dbname=test password=%s"
 )
 
 var db database.CesanaDb
@@ -117,7 +116,7 @@ func sendAperture(c *clientsock.CallbackData, id string) {
 
 func ceckenv() map[string]string {
 	out := make(map[string]string)
-	sources := []string{"c_user", "c_password", "esppassword", "servertoken", "PORT"}
+	sources := []string{"esppassword", "servertoken", "PORT", "dburi"}
 	for _, el := range sources {
 		value := os.Getenv(el)
 		if len(value) == 0 {
@@ -130,7 +129,10 @@ func ceckenv() map[string]string {
 
 func main() {
 	envs := ceckenv()
-	db.Connect(fmt.Sprintf(connTemplate, envs["c_user"], envs["c_password"]))
+	err := db.Connect(envs["dburi"])
+	if err != nil {
+		panic(err)
+	}
 	defer db.Disconnect()
 	clientServer.Start(&clientsock.Callbacks{
 		Apricancello:    comunicaApricencello,
