@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"runtime"
 	"strings"
 
 	"github.com/AlessandroRuggiero/go-socketcast"
@@ -25,7 +26,7 @@ var esp espconn.EspConnection
 var clientServer clientsock.ClientSock
 
 func homePage(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Welcome to the HomePage! %s", os.Getenv("esppassword"))
+	fmt.Fprintf(w, "Welcome to the HomePage! Sto girando:%s", runtime.Version())
 	fmt.Println("Endpoint Hit: homePage")
 }
 
