@@ -3,6 +3,7 @@ package clientsock
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 
 	"github.com/AlessandroRuggiero/go-socketcast"
 	fauth "github.com/aleruggiero/cancello-cesana/authentication"
@@ -72,6 +73,7 @@ func (s *ClientSock) apri(c *socketcast.Client, msg Message) bool {
 func (c *ClientSock) BroadcastAperture(aperture []byte, authId string) {
 	c.Pool.ForEach(
 		func(c *socketcast.Client) (socketcast.Message, bool, error) {
+			fmt.Println("analizzo:", c.Conn.RemoteAddr().String())
 			if data, found := c.Metadata.Get("authData"); found {
 				if token, ok := data.(fauth.FaceToken); ok {
 					if token.Data.UserID != authId {
