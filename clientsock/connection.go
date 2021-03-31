@@ -47,5 +47,5 @@ func (c *ClientSock) BroadcastApertoCancelletto(id string) {
 }
 
 func guard(c *socketcast.Client) bool {
-	return c.Auth.Authenticated
+	return c.Auth.IsAuthenticated()
 }

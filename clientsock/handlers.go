@@ -42,8 +42,8 @@ func (s *ClientSock) authClient(c *socketcast.Client, msg []byte) bool {
 		c.Pool.Log.Infof("autenticazione fallita %s", authData.Token)
 		return true
 	}
-	c.Auth.Authenticated = true
-	c.Auth.Token = authData.Token
+	c.Auth.Authenticate()
+	c.Auth.SetToken(authData.Token)
 	// q s t
 	c.Metadata.Set(AuthDataS, authToken)
 	c.Pool.Log.Infof("autentiucato %s", authToken.Data.UserID)
@@ -56,7 +56,7 @@ func (s *ClientSock) authClient(c *socketcast.Client, msg []byte) bool {
 	return false
 }
 func (s *ClientSock) apri(c *socketcast.Client, msg Message) bool {
-	if !c.Auth.Authenticated {
+	if !c.Auth.IsAuthenticated() {
 		c.Pool.Log.Infof("%s non autenticato ha provato a aprire il cancello, chiudo la connessione", c.Conn.RemoteAddr())
 		return true
 	}
